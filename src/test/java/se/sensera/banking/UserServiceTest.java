@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import se.sensera.banking.exceptions.Activity;
 import se.sensera.banking.exceptions.UseException;
 import se.sensera.banking.exceptions.UseExceptionType;
+import se.sensera.banking.impl.UserServiceImpl;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -28,9 +29,9 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         //TODO Måste skickas med som en parameter i UserService constructor
-        usersRepository = mock(UsersRepository.class);
+        usersRepository = mock(UsersRepository.class); // skicka in usersRepository under
 
-        userService = null; //TODO create Your implementing class here
+        userService = new UserServiceImpl(usersRepository); // Lägg till class //alt enter to create constructor TODO create Your implementing class here
 
         userId = UUID.randomUUID().toString();
         user = mock(User.class);
