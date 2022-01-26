@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public User changeUser(String userId, Consumer<ChangeUser> changeUser) throws UseException {
      /*   if (usersRepository.all()
                 .filter(user -> user.getPersonalIdentificationNumber().equals(userId))
-
+//BLABLALBALBLABLA
                 {
             throw new UseException(Activity.UPDATE_USER, UseExceptionType.USER_PERSONAL_ID_NOT_UNIQUE);
         }*/
