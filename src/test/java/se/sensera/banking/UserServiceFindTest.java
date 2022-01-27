@@ -2,6 +2,7 @@ package se.sensera.banking;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.sensera.banking.impl.UserServiceImpl;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +37,7 @@ public class UserServiceFindTest {
         //TODO Måste skickas med som en parameter i UserService constructor
         usersRepository = mock(UsersRepository.class);
 
-        userService = null; //TODO create Your implementing class here
+        userService = new UserServiceImpl(usersRepository); //TODO create Your implementing class here
 
         arne_gunnarsson = createUser("Arne Gunnarsson", "20011010-1234", true);
         lisa_gunnarsson = createUser("Lisa  Gunnarsson", "20011010-0234", true);
