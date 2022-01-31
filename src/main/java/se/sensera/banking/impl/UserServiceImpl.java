@@ -6,7 +6,9 @@ import se.sensera.banking.UsersRepository;
 import se.sensera.banking.exceptions.Activity;
 import se.sensera.banking.exceptions.UseException;
 import se.sensera.banking.exceptions.UseExceptionType;
+import se.sensera.banking.utils.ListUtils;
 
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
@@ -88,7 +90,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Stream<User> find(String searchString, Integer pageNumber, Integer pageSize, SortOrder sortOrder) {
 
-        return usersRepository.all()
-                .filter(user -> user.getName().toLowerCase().contains(searchString));
+        String setNameToUpperCase = searchString.toUpperCase();
+
+        return switch (sortOrder) {
+            case None -> searchString.isEmpty()
+                    ? ListUtils.applyPage(usersRepository.all(), pageNumber, pageSize).filter(User::isActive)
+                    : usersRepository.all().filter(user -> user.getName().toUpperCase().contains(setNameToUpperCase));
+            case Name ->
+                    usersRepository.all().sorted(Comparator.comparing(User::getName));
+            case PersonalId ->
+                    usersRepository.all().sorted(Comparator.comparing(User::getPersonalIdentificationNumber));
+
+        };
     }
 }
