@@ -37,9 +37,12 @@ vet vilka metoder som behöver skapas samt vilken logik de behöver innehålla g
 lösa testen. Du kan läsa mer om hur du går tillväga i nästa del.
 
 Test består av tre delar med rubriker för vad koden i de olika delarna kollar.
+
 //Given
 Koden på raderna under står för vad som finns.
+
 //When
 Koden under visar vad det är som behöver skapas.
+
 //Then
 Koden under visar vilken logik som behöver finnas i metoden från When.
