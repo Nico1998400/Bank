@@ -1,11 +1,13 @@
 # BANKING ASSIGNMENT
 
 Uppgift
+
 Skapa en ny bank, med hjälp av de kraven som finns via automatiserade tester.
 Skapa klasser med metoder som uppfyller den logik som behövs för att testerna ska bli
 godkända.
 
 Genomförande
+
 Uppgiften genomförs med TDD (test driven utveckling). Det vill säga, fallerande tester först
 och sedan implementation av egenskaperna, så att testerna blir gröna. Alla tester är röda
 och “trasiga” till en början. Genom att skriva rätt logik i metoderna som behöver skapas ska
@@ -25,6 +27,7 @@ Tekniker som skall användas
 
 
 Kod
+
 ● Följ kodstandard https://google.github.io/styleguide/javaguide.html
 ● All kod skall vara lättläst och lätt att följa och lätt att förstå.
 ● Alla tester skall ha 100& code coverage
