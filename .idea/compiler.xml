@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="banking" />
+        <module name="Bank" />
       </profile>
     </annotationProcessing>
   </component>
