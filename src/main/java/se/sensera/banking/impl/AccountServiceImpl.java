@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account addUserToAccount(String userId, String accountId, String userIdToBeAssigned) throws UseException {
         User user = usersRepository.getEntityById(userId).orElseThrow();
-        User userToAdd = usersRepository.getEntityById(userIdToBeAssigned).get();
+        User userToAdd = usersRepository.getEntityById(userIdToBeAssigned).orElseThrow();
 
         if (accountRepository.getEntityById(accountId).isEmpty()) {
             throw new UseException(Activity.UPDATE_ACCOUNT, UseExceptionType.NOT_FOUND);
@@ -66,8 +66,25 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account removeUserFromAccount(String userId, String accountId, String userIdToBeAssigned) throws UseException {
-        return null;
+        Account account = accountRepository.getEntityById(accountId).orElseThrow();
+        User user = usersRepository.getEntityById(userId).orElseThrow();
+        User userToAdd = usersRepository.getEntityById(userIdToBeAssigned).get();
+
+
+        if (!account.getOwner().equals(user)){
+            throw new UseException(Activity.UPDATE_ACCOUNT, UseExceptionType.NOT_OWNER);
+        }
+
+        if (account.getUsers().noneMatch(user1 -> user1.equals(userToAdd) )) {
+            throw new UseException(Activity.UPDATE_ACCOUNT, UseExceptionType.USER_NOT_ASSIGNED_TO_THIS_ACCOUNT);
+        }
+
+
+        account.removeUser(userToAdd);
+        return accountRepository.save(account);
+
     }
+
 
     @Override
     public Account inactivateAccount(String userId, String accountId) throws UseException {
