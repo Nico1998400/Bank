@@ -146,14 +146,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
+
     @Override
     public Stream<Account> findAccounts(String searchValue, String userId, Integer pageNumber, Integer pageSize, SortOrder sortOrder) throws UseException {
 
         Stream<Account> accountStream = accountRepository.all();
+        if (searchValue != null && !searchValue.isEmpty())
+            accountStream = accountStream.filter(account -> account.getName().contains(searchValue.toLowerCase()));
 
-        accountStream = accountStream.filter(account -> account.getName().contains(searchValue.toLowerCase()));
-        accountStream = accountStream.sorted(Comparator.comparing(Account::getName));
+        if (userId != null)
+            accountStream = accountStream.filter(account -> account.getOwner().getId().equals(userId) || account.getUsers().anyMatch(user -> user.getId().equals(userId)));
+
+        if (sortOrder.equals(SortOrder.AccountName))
+            accountStream = accountStream.sorted(Comparator.comparing(Account::getName));
 
         return ListUtils.applyPage(accountStream, pageNumber, pageSize);
     }
 }
+
